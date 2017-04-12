@@ -15,10 +15,6 @@ GET     /favicon.ico                            404
 # Map static resources from the /app/public folder to the /public path
 GET     /public/*filepath                       Static.Serve("public")
 
-# Server online/offline switcher
-GET      /server/on                       Server.Online
-GET      /server/off                       Server.Offline
-GET      /server/status                       Server.Status
 
 # Catch all
 *       /:controller/:action                    :controller.:action
