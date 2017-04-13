@@ -6,23 +6,27 @@ import (
 	"github.com/revel/revel"
 )
 
-type Test struct {
+type User struct {
 	*revel.Controller
 }
 
-func (c Test) Index() revel.Result {
-	testDao := dao.TestDao{}
+func (c User) Index() revel.Result {
+	testDao := dao.User{}
 	list, err := testDao.List()
 	if err != nil {
 		message := models.Message{
 			Code: models.InnerError,
 			Msg:  "fail",
-			Data: []models.Test{},
+			Data: []models.User{},
 		}
 		return c.RenderJSON(message)
 	}
 	if list == nil {
-		list = []models.Test{}
+		list = []models.User{}
 	}
-	return c.RenderJSON(models.Message{Code: models.OK, Msg: "success", Data: list})
+	return c.RenderJSON(models.Message{
+		Code: models.OK,
+		Msg:  "success",
+		Data: list,
+	})
 }

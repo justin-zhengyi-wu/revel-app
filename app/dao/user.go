@@ -1,27 +1,35 @@
 package dao
 
 import (
-	"fmt"
 	"github.com/justin-zhengyi-wu/revel-app/app"
 	"github.com/justin-zhengyi-wu/revel-app/app/models"
 	"github.com/revel/revel"
 )
 
-type TestDao struct {
+type User struct {
 }
 
-func (this *TestDao) List() (list []models.Test, err error) {
+func (this *User) List() (list []models.User, err error) {
 	sql := "select id, status from test"
 	rows, err := app.DB.Query(sql)
 	if err != nil {
-		revel.INFO.Println("Sql error", err)
+		revel.ERROR.Println("Sql error", err)
+		return nil, err
 	}
-	fmt.Printf("%v", rows)
-	defer rows.Close()
-	results := []models.Test{}
+
+	defer func() {
+		if rows != nil {
+			rows.Close()
+		}
+	}()
+
+	results := []models.User{}
 	for rows.Next() {
-		result := models.Test{}
-		err = rows.Scan(&result.Id, &result.Status)
+		result := models.User{}
+		err := rows.Scan(&result.Id, &result.Status)
+		if err != nil {
+			revel.INFO.Println(err)
+		}
 		results = append(results, result)
 	}
 	err = rows.Err()

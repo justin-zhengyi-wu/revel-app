@@ -1,6 +1,6 @@
 package models
 
-type Test struct {
+type User struct {
 	Id     int    `json:"id"`
 	Status string `json:"status"`
 }

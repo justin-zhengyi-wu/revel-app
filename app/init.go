@@ -63,7 +63,6 @@ var HeaderFilter = func(c *revel.Controller, fc []revel.Filter) {
 
 func InitDB() {
 	driver := revel.Config.StringDefault("db.driver", "mysql")
-	//	connstring := fmt.Sprintf("user=%s password='%s' dbname=%s sslmode=disable", "root", "", "test")
 	dsn := revel.Config.StringDefault("db.spec", "")
 	var err error
 	DB, err = sql.Open(driver, dsn)
